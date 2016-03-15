@@ -1,0 +1,69 @@
+<resources>
+    <string name="app_name">peanut Encryption</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_initialization">Initialization</string>
+    <string name="title_activity_start">Logg In</string>
+    <string name="sharedPref">passwordPref</string>
+    <string name="title_activity_lizence">LizenceActivity</string>
+    <string name="NewCodeName">Code Name</string>
+    <string name="NewCodeSecret">Code</string>
+    <string name="Loggin_Password_Hint">Password</string>
+    <string name="Loggin_Textview">Enter Password</string>
+    <string name="Title_Initialization">Please choose a Password</string>
+    <string name="License_Text"><![CDATA[
+This software contains software from the following libraries,
+which are listed with their licenses bellow:
+\n
+\n
+======================\n
+Library: java-aes-crypto (https://github.com/tozny/java-aes-crypto)\n
+======================\n
+\n
+The MIT License (MIT)\n
+\n
+Copyright (c) 2014-2015 Tozny, LLC; (http://tozny.com)\n
+\n
+Permission is hereby granted, free of charge, to any person obtaining a copy\n
+of this software and associated documentation files (the "Software"), to deal\n
+in the Software without restriction, including without limitation the rights\n
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell\n
+copies of the Software, and to permit persons to whom the Software is\n
+furnished to do so, subject to the following conditions:\n
+\n
+The above copyright notice and this permission notice shall be included in all\n
+copies or substantial portions of the Software.\n
+\n
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\n
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\n
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\n
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\n
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\n
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\n
+SOFTWARE.\n
+\n
+\n
+\n
+\n
+\n
+\n
+\n
+\n
+\n
+\n
+\n
+\n
+\n
+\n
+]]>
+    </string>
+
+    <string name="button_new_code">save</string>
+    <string name="Initialization_Password_Hint">Password</string>
+    <string name="Initialization_Password_Hint_2">Repeat Password</string>
+    <string name="Initialization_Button_Text">Confirm</string>
+    <string name="Logg_In_Button_Text">Logg In</string>
+    <string name="Main_Title_Menu_Open_Source">Open-Source Licenses</string>
+    <string name="Main_Title_Menu_Logout">Logout</string>
+</resources>
