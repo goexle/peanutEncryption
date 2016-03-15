@@ -6,7 +6,8 @@ You need a master password each time you want to access your saved codes/passwor
 
 # How the app secures your codes/passwords:
 Your codes/passwords are encrypted with an AES 256 key generated with your master password.
-Each time you want to access you codes/passwords, the AES 256 key will be generated with your master password.
+The key and the password will be deleted immediately if the app goes into background.
+So each time you switch back to the app you will have to enter your password again and the key will be generated to decrypt your data.
 
 # Privacy
 AT NOW TIME WILL YOUR DATA BE UPLOADED TO THE INTERNET OR USED FOR ANYTHING ELSE!
