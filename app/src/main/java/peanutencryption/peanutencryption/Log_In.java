@@ -4,13 +4,9 @@
  */
 package peanutencryption.peanutencryption;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.hardware.input.InputManager;
 import android.os.AsyncTask;
-import android.security.KeyStoreParameter;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,20 +16,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.tozny.crypto.android.AesCbcWithIntegrity;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
-import java.security.KeyStore;
-
-import javax.crypto.SecretKey;
-
 
 
 public class Logg_In extends AppCompatActivity {
@@ -60,7 +48,7 @@ public class Logg_In extends AppCompatActivity {
         textInputLayout.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
-                    onClickBtnLoggIn(v);
+                    onClickBtnLogIn(v);
                 }
                 return false;
             }
@@ -94,7 +82,7 @@ public class Logg_In extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClickBtnLoggIn(View v)
+    public void onClickBtnLogIn(View v)
     {
         TextInputLayout textInputLayout = (TextInputLayout) findViewById(R.id.start_editText_Password);
         String pwd = textInputLayout.getEditText().getText().toString();
