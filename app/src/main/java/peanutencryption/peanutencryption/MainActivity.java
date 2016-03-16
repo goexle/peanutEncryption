@@ -397,7 +397,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle);
 
 
-        builder.setMessage("Delete code   " + codeObject.getCodeName() + " ?");
+        builder.setMessage(getString(R.string.main_Act_delete_Code_text)+"   " + codeObject.getCodeName() + " ?");
 
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {

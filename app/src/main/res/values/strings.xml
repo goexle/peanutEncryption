@@ -1,12 +1,9 @@
 <resources>
     <string name="app_name">peanut Encryption</string>
 
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
     <string name="title_activity_initialization">Initialization</string>
     <string name="title_activity_start">Log In</string>
     <string name="sharedPref">passwordPref</string>
-    <string name="title_activity_lizence">LizenceActivity</string>
     <string name="NewCodeName">Code Name</string>
     <string name="NewCodeSecret">Code</string>
     <string name="Login_Password_Hint">Password</string>
@@ -66,4 +63,6 @@ SOFTWARE.\n
     <string name="Log_In_Button_Text">Log In</string>
     <string name="Main_Title_Menu_Open_Source">Open-Source Licenses</string>
     <string name="Main_Title_Menu_Logout">Logout</string>
+    <string name="main_Act_delete_Code_text">"Delete code"</string>
+    <string name="Log_In_Act_Wrong_Password">Wrong Password</string>
 </resources>

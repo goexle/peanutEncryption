@@ -165,7 +165,7 @@ public class Log_In extends AppCompatActivity {
                 wrongPassword();
                 TextInputLayout textInputLayout = (TextInputLayout) findViewById(R.id.start_editText_Password);
 
-                textInputLayout.setError("Wrong Password");
+                textInputLayout.setError(getString(R.string.Log_In_Act_Wrong_Password));
 
             }
 
