@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private AesCbcWithIntegrity.SecretKeys globalSecretKey;
+    MyRecyclerVAdapter myRecyclerVAdapter;
 
 
     SQLiteHelper sqLiteHelper;
@@ -116,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             if(!loggedIn && !initializationInProgress &&!newCodeInProgress)
             {
                 authenticate();
+
             }
 
 
@@ -152,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
             Log.d(LOG_str,"secret Key successful load from psw");
             globalSecretKey = secretKeys;
             loggedIn = true;
+            loadDataFromDatabase();
         }
         else
         {
@@ -167,13 +170,14 @@ public class MainActivity extends AppCompatActivity {
     {
         loggedIn = false;
         globalSecretKey = null;
+        myRecyclerVAdapter.clearData();
     }
 
 
     private void enterPassword()
     {
-        Intent intent = new Intent(this, Logg_In.class);
-        startActivityForResult(intent, LOGG_IN_ID);
+        Intent intent = new Intent(this, Log_In.class);
+        startActivityForResult(intent, LOG_IN_ID);
 
     }
 
@@ -212,6 +216,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void loadDataFromDatabase()
     {
+        Log.i(LOG_str, "load data from database and set adapter");
         ArrayList<CodeObject> ArrayOfObjectsFromDatabase = sqLiteHelper.getAllCodes();
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.RecyclerView);
@@ -219,9 +224,10 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(llm);
 
 
-        MyRecyclerVAdapter adapter = new MyRecyclerVAdapter(ArrayOfObjectsFromDatabase, new RecyclerViewClickListener(), new RecyclerViewLongClickListener());
+        myRecyclerVAdapter = new MyRecyclerVAdapter(ArrayOfObjectsFromDatabase, new RecyclerViewClickListener(), new RecyclerViewLongClickListener());
 
-        recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(myRecyclerVAdapter);
+
 
      }
 
@@ -268,6 +274,14 @@ public class MainActivity extends AppCompatActivity {
         public void onAttachedToRecyclerView(RecyclerView recyclerView) {
             super.onAttachedToRecyclerView(recyclerView);
         }
+
+        public void clearData()
+        {
+            codeObjects.clear();
+            notifyDataSetChanged();
+        }
+
+
 
         public class CodeViewHolder extends RecyclerView.ViewHolder {
             CardView cardView;
@@ -463,7 +477,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     final int INITALIZATION_ID = 1;
-    final int LOGG_IN_ID =2;
+    final int LOG_IN_ID =2;
     final int NEWCODE_ID = 3;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -499,7 +513,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             }
-            case LOGG_IN_ID:
+            case LOG_IN_ID:
             {
 
                 if (resultCode == RESULT_OK) {
@@ -511,12 +525,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                     else
                     {
-                        Log.e(LOG_str, "MainActivity: SecPGPKey could not be loader with password from Logg_In");
+                        Log.e(LOG_str, "MainActivity: SecPGPKey could not be loader with password from Log_In");
                     }
                 }
                 else if(resultCode == RESULT_CANCELED)
                 {
-                    Log.i(LOG_str, "Logg_In Activity returned with result_canceled: Wrong password 3 times");
+                    Log.i(LOG_str, "Log_In Activity returned with result_canceled: Wrong password 3 times");
                     shutdown();
                 }
                 else

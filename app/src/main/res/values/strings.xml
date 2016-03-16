@@ -4,13 +4,13 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_initialization">Initialization</string>
-    <string name="title_activity_start">Logg In</string>
+    <string name="title_activity_start">Log In</string>
     <string name="sharedPref">passwordPref</string>
     <string name="title_activity_lizence">LizenceActivity</string>
     <string name="NewCodeName">Code Name</string>
     <string name="NewCodeSecret">Code</string>
-    <string name="Loggin_Password_Hint">Password</string>
-    <string name="Loggin_Textview">Enter Password</string>
+    <string name="Login_Password_Hint">Password</string>
+    <string name="Login_Textview">Enter Password</string>
     <string name="Title_Initialization">Please choose a Password</string>
     <string name="License_Text"><![CDATA[
 This software contains software from the following libraries,
@@ -63,7 +63,7 @@ SOFTWARE.\n
     <string name="Initialization_Password_Hint">Password</string>
     <string name="Initialization_Password_Hint_2">Repeat Password</string>
     <string name="Initialization_Button_Text">Confirm</string>
-    <string name="Logg_In_Button_Text">Logg In</string>
+    <string name="Log_In_Button_Text">Log In</string>
     <string name="Main_Title_Menu_Open_Source">Open-Source Licenses</string>
     <string name="Main_Title_Menu_Logout">Logout</string>
 </resources>

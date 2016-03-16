@@ -7,11 +7,11 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="peanutencryption.peanutencryption.Logg_In">
+    tools:context=".Log_In">
 
 
     <android.support.v7.widget.CardView
-        android:id="@+id/CardView_Logg_in"
+        android:id="@+id/CardView_Log_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp">
@@ -25,9 +25,9 @@
                 android:id="@+id/start_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:text="@string/Loggin_Textview"
+                android:text="@string/Login_Textview"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <android.support.design.widget.TextInputLayout
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_below="@id/start_textView">
 
                 <EditText
@@ -44,21 +44,21 @@
                     android:ems="10"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:hint="@string/Loggin_Password_Hint"
+                    android:hint="@string/Login_Password_Hint"
                     android:inputType="textPassword" />
 
             </android.support.design.widget.TextInputLayout>
 
 
             <Button
-                android:id="@+id/start_Btn_Logg_in"
+                android:id="@+id/start_Btn_Log_in"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 android:layout_below="@id/start_editText_Password"
                 android:background="@color/ColorPrimary"
-                android:onClick="onClickBtnLoggIn"
-                android:text="@string/Logg_In_Button_Text"
+                android:onClick="onClickBtnLogIn"
+                android:text="@string/Log_In_Button_Text"
                 android:textColor="@color/White" />
 
 

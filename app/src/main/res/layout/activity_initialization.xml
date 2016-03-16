@@ -8,7 +8,7 @@
     tools:context="peanutencryption.peanutencryption.Initialization">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/CardView_Logg_in"
+        android:id="@+id/CardView_Log_in"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp">
@@ -25,13 +25,13 @@
                 android:text="@string/Title_Initialization"
                 android:id="@+id/initialize_text"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentLeft="true" />
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/textInputLayout_Password_First"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_below="@+id/initialize_text"
                 android:layout_marginTop="30dp">
 
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textInputLayout_Password_First"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentLeft="true">
 
                 <EditText
                     android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                 android:onClick="clickButtonConfirm"
                 android:nestedScrollingEnabled="false"
                 android:layout_below="@+id/textInputLayout_Password_Second"
-                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
                 />
 
 

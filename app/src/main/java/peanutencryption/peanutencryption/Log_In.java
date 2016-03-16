@@ -24,7 +24,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 
 
-public class Logg_In extends AppCompatActivity {
+public class Log_In extends AppCompatActivity {
 
     public String LOG_str = "peanutencryption";
 

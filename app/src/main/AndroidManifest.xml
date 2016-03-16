@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="peanutencryption.peanutencryption"
-    android:versionCode="1"
-    android:versionName="1.0">
+    android:versionCode="2"
+    android:versionName="1.1">
 
-    <uses-sdk android:minSdkVersion="10"
+    <uses-sdk android:minSdkVersion="11"
         android:targetSdkVersion="22"
         android:maxSdkVersion="23" />
     <application
@@ -26,7 +26,7 @@
             android:label="@string/title_activity_initialization"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".Logg_In"
+            android:name=".Log_In"
             android:label="@string/title_activity_start"
             android:windowSoftInputMode="stateVisible"
             android:screenOrientation="portrait"/>
