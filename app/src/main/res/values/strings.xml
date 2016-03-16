@@ -9,7 +9,7 @@
     <string name="Login_Password_Hint">Password</string>
     <string name="Login_Textview">Enter Password</string>
     <string name="Title_Initialization">Please choose a Password</string>
-    <string name="License_Text"><![CDATA[
+    <string name="License_Text" translatable="false"><![CDATA[
 This software contains software from the following libraries,
 which are listed with their licenses bellow:
 \n

@@ -2,7 +2,6 @@
 <resources>
     <string name="app_name">peanut Encryption</string>
 
-    <string name="action_settings">Einstellungen</string>
     <string name="title_activity_initialization">Initialisierung</string>
     <string name="title_activity_start">Log In</string>
     <string name="sharedPref">passwordPref</string>
