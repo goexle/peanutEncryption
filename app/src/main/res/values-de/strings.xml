@@ -5,8 +5,8 @@
     <string name="title_activity_initialization">Initialisierung</string>
     <string name="title_activity_start">Log In</string>
     <string name="sharedPref">passwordPref</string>
-    <string name="NewCodeName">Code Name</string>
-    <string name="NewCodeSecret">Code</string>
+    <string name="NewCodeName">Passwort/Code Bezeichnung</string>
+    <string name="NewCodeSecret">Passwort/Code</string>
     <string name="Login_Password_Hint">Passwort</string>
     <string name="Login_Textview">Passwort eingeben</string>
     <string name="Title_Initialization">Bitte wähle ein Passwort</string>
