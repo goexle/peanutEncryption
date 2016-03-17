@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">peanut Encryption</string>
+    <string name="app_name">Peanut Encryption</string>
 
     <string name="title_activity_initialization">Initialisierung</string>
     <string name="title_activity_start">Log In</string>
@@ -17,6 +17,8 @@
     <string name="Log_In_Button_Text">Log In</string>
     <string name="Main_Title_Menu_Open_Source">Open-Source Lizenzen</string>
     <string name="Main_Title_Menu_Logout">Ausloggen</string>
-    <string name="main_Act_delete_Code_text">"Lösche Code"</string>
+    <string name="main_Act_delete_Code_text">Lösche Code</string>
     <string name="Log_In_Act_Wrong_Password">Passwort falsch</string>
+    <string name="Init_App_Empty_password">Bitte gib ein Passwort ein</string>
+    <string name="Init_App_Password_do_not_match">Passwort stimmt nicht überein</string>
 </resources>

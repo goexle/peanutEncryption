@@ -26,11 +26,11 @@ import java.security.GeneralSecurityException;
 
 public class Log_In extends AppCompatActivity {
 
-    public String LOG_str = "peanutencryption";
+    private String LOG_str = "peanutencryption";
 
     private String MY_PREF;
 
-    int countWrongPassword = 0;
+    private int countWrongPassword = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -13,8 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
 
 
 public class Initialization extends AppCompatActivity {
@@ -64,28 +62,32 @@ public class Initialization extends AppCompatActivity {
         String firstPassword = inputLayoutPasswordFirst.getEditText().getText().toString();
         String secondPassword = inputLayoutPasswordSecond.getEditText().getText().toString();
 
-        if(firstPassword.contentEquals(secondPassword))
+        if(firstPassword.isEmpty())
         {
-            Button btn = (Button) findViewById(R.id.ConfirmBtn);
-            btn.setEnabled(false);
-            SharedPreferences settings = getSharedPreferences(MY_PREF, 0);
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putBoolean("isInitialized", true);
-            editor.commit();
-
-            Intent broadcastIntent = new Intent();
-            broadcastIntent.putExtra("password", firstPassword);
-            setResult(RESULT_OK, broadcastIntent);
-            finish();
-        }
-        else
-        {
-            inputLayoutPasswordFirst.getEditText().setText("");
-            inputLayoutPasswordSecond.getEditText().setText("");
-            inputLayoutPasswordFirst.setError("Password does not match. Type in again");
+            inputLayoutPasswordFirst.setError(getString(R.string.Init_App_Empty_password));
             inputLayoutPasswordSecond.setError(" ");
         }
+        else {
 
+            if (firstPassword.contentEquals(secondPassword)) {
+                Button btn = (Button) findViewById(R.id.ConfirmBtn);
+                btn.setEnabled(false);
+                SharedPreferences settings = getSharedPreferences(MY_PREF, 0);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putBoolean("isInitialized", true);
+                editor.commit();
+
+                Intent broadcastIntent = new Intent();
+                broadcastIntent.putExtra("password", firstPassword);
+                setResult(RESULT_OK, broadcastIntent);
+                finish();
+            } else {
+                inputLayoutPasswordFirst.getEditText().setText("");
+                inputLayoutPasswordSecond.getEditText().setText("");
+                inputLayoutPasswordFirst.setError(getString(R.string.Init_App_Password_do_not_match));
+                inputLayoutPasswordSecond.setError(" ");
+            }
+        }
 
 
     }

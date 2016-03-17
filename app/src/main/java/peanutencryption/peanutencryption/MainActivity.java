@@ -17,7 +17,6 @@ import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.*;
-import android.view.MenuItem;
 import android.widget.*;
 
 
@@ -25,8 +24,6 @@ import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.*;
 import android.util.*;
-
-import android.view.View;
 
 
 import com.tozny.crypto.android.AesCbcWithIntegrity;
@@ -37,22 +34,22 @@ import peanutencryption.peanutencryption.SQL.SQLiteHelper;
 
 public class MainActivity extends AppCompatActivity {
 
-    static public String LOG_str = "peanutencryption";
+    private static String LOG_str = "peanutencryption";
 
     private String MY_PREF;
 
 
     private AesCbcWithIntegrity.SecretKeys globalSecretKey;
-    MyRecyclerVAdapter myRecyclerVAdapter;
+    private MyRecyclerVAdapter myRecyclerVAdapter;
 
 
-    SQLiteHelper sqLiteHelper;
+    private SQLiteHelper sqLiteHelper;
 
     private boolean initializationInProgress = false;
     private boolean newCodeInProgress = false;
 
 
-    boolean loggedIn = false;
+    private boolean loggedIn = false;
 
 
     @Override
@@ -100,17 +97,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    protected void onStart()
-    {
-        super.onStart();
-        //authenticate();
-    }
-    @Override
-    protected void onRestart(){
-        super.onRestart();
-        //authenticate();
-    }
+
     @Override
     protected void onResume(){
         super.onResume();
@@ -131,14 +118,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-    }
+
 
 
 
@@ -261,8 +241,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public CodeViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
             View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_code, viewGroup, false);
-            CodeViewHolder pvh = new CodeViewHolder(v);
-            return pvh;
+
+            return new CodeViewHolder(v);
         }
 
         @Override
@@ -422,7 +402,7 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    public String encrypt(String message)
+    private String encrypt(String message)
     {
 
         AesCbcWithIntegrity.CipherTextIvMac cipherTextIvMac = null;
@@ -435,7 +415,7 @@ public class MainActivity extends AppCompatActivity {
         return cipherTextIvMac.toString();
     }
 
-    public String decrypt(String decryptedMessage)
+    private String decrypt(String decryptedMessage)
     {
 
         try {
@@ -476,9 +456,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    final int INITALIZATION_ID = 1;
-    final int LOG_IN_ID =2;
-    final int NEWCODE_ID = 3;
+    public final int INITALIZATION_ID = 1;
+    public final int LOG_IN_ID =2;
+    public final int NEWCODE_ID = 3;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -557,7 +537,7 @@ public class MainActivity extends AppCompatActivity {
 
                    long id = sqLiteHelper.insertIntoDataTable(CodeName, encrypt(Code));
                    if(id!=0)
-                       Log.i(LOG_str, "Succussful added code in Database. ID="+id);
+                       Log.i(LOG_str, "Successful added code in Database. ID="+id);
                    else
                        Log.e(LOG_str, "Failed to insert Code into Database");
 

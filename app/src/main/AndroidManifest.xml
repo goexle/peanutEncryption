@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="peanutencryption.peanutencryption"
-    android:versionCode="3"
-    android:versionName="1.2"
+
 
     android:installLocation="internalOnly">
 
-    <uses-sdk android:minSdkVersion="11"
-        android:targetSdkVersion="22"
+    <uses-sdk
         android:maxSdkVersion="23" />
     <application
         android:allowBackup="false"
@@ -35,7 +33,7 @@
         <activity android:name=".LicenseActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".NewCodeActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

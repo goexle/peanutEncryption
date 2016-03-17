@@ -18,10 +18,10 @@ import android.util.Log;
 
 public class SQLiteHelper extends SQLiteOpenHelper implements Serializable {
 
-	public static final int DATABASE_VERSION = 1;
-    public String _databaseName;
+	private static final int DATABASE_VERSION = 1;
+    private String _databaseName;
 
-	public String LOG_str = "peanutencryption";
+	private String LOG_str = "peanutencryption";
 
 
 
