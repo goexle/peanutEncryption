@@ -13,5 +13,6 @@ Der Schlüssel und das Passwort werden jedes mal sofort gelöscht, wenn die App 
 Jedes mal wenn du zur App zurückkehrst oder sie öffnest brauchst du also dein Master Passwort, damit dein Schlüssel generiert werden kann.
 
 # Lizenz
-Dieses Projekt (einschließlich dem Quellcode) ist unter der MIT (opensource.org/licenses/MIT) Lizenz veröffentlicht und kann von jedem eingesehen oder unter der genannten Lizenz verwendet werden.
+Dieses Projekt (einschließlich dem Quellcode) ist unter der Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0) Lizenz veröffentlicht
+und kann von jedem eingesehen oder unter der genannten Lizenz verwendet werden.
 Der Quellcode ist hier einsehbar: https://github.com/goexle/peanutEncryption

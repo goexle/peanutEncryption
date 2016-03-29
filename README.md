@@ -10,9 +10,9 @@ The key and the password will be deleted immediately if the app goes into backgr
 So each time you switch back to the app you will have to enter your password again and the key will be generated to decrypt your data.
 
 # Privacy
-AT NOW TIME WILL YOUR DATA BE UPLOADED TO THE INTERNET OR USED FOR ANYTHING ELSE!
+AT NO TIME WILL YOUR DATA BE UPLOADED TO THE INTERNET OR USED FOR ANYTHING ELSE!
 Your data is stored encrypted on your device and will stay on your device.
 
 # LICENSE
-The project is provided under the terms of the MIT license (opensource.org/licenses/MIT).
+The project is provided under the terms of the Apache License 2.0 (http://www.apache.org/licenses/LICENSE-2.0).
 You may obtain a copy of the source files at https://github.com/goexle/peanutEncryption.
