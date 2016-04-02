@@ -23,6 +23,7 @@ import android.widget.*;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
 import java.util.*;
+
 import android.util.*;
 
 
@@ -63,16 +64,15 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
 
-        MY_PREF  = getString(R.string.sharedPref);
+        MY_PREF = getString(R.string.sharedPref);
 
 
         sqLiteHelper = new SQLiteHelper(this, "peanutEncryption");
 
         SharedPreferences settings = getSharedPreferences(MY_PREF, 0);
         boolean isInitialized = settings.getBoolean("isInitialized", false);
-        
-        if(!isInitialized)
-        {
+
+        if (!isInitialized) {
             try {
                 String newSalt = AesCbcWithIntegrity.saltString(AesCbcWithIntegrity.generateSalt());
                 SharedPreferences.Editor editor = settings.edit();
@@ -97,47 +97,38 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     @Override
-    protected void onResume(){
+    protected void onResume() {
         super.onResume();
-            if(!loggedIn && !initializationInProgress &&!newCodeInProgress)
-            {
-                authenticate();
+        if (!loggedIn && !initializationInProgress && !newCodeInProgress) {
+            authenticate();
 
-            }
+        }
 
 
     }
+
     @Override
-    protected void onPause(){
+    protected void onPause() {
         super.onPause();
-        if(!newCodeInProgress)
-        {
+        if (!newCodeInProgress) {
             logout();
         }
 
     }
 
 
-
-
-    private void authenticate()
-    {
+    private void authenticate() {
         enterPassword();
     }
 
-    private void finishAuthentication(AesCbcWithIntegrity.SecretKeys secretKeys)
-    {
-        if(secretKeys != null)
-        {
-            Log.d(LOG_str,"secret Key successful load from psw");
+    private void finishAuthentication(AesCbcWithIntegrity.SecretKeys secretKeys) {
+        if (secretKeys != null) {
+            Log.d(LOG_str, "secret Key successful stored");
             globalSecretKey = secretKeys;
             loggedIn = true;
             loadDataFromDatabase();
-        }
-        else
-        {
+        } else {
             loggedIn = false;
             Log.e(LOG_str, "secret Key null");
             shutdown();
@@ -146,21 +137,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void logout()
-    {
+    private void logout() {
         loggedIn = false;
         globalSecretKey = null;
         myRecyclerVAdapter.clearData();
     }
 
 
-    private void enterPassword()
-    {
+    private void enterPassword() {
         Intent intent = new Intent(this, Log_In.class);
         startActivityForResult(intent, LOG_IN_ID);
 
     }
-
 
 
     @Override
@@ -175,18 +163,23 @@ public class MainActivity extends AppCompatActivity {
 
         int id = item.getItemId();
 
-        switch(item.getItemId())
-        {
+        switch (item.getItemId()) {
 
-            case R.id.shutdown:
-            {
+            case R.id.shutdown: {
                 this.shutdown();
                 return true;
+
             }
 
             case R.id.showLicense:
                 Intent showLicenseIntend = new Intent(this, LicenseActivity.class);
                 startActivity(showLicenseIntend);
+                return true;
+
+            case R.id.change_password_menu:
+                Intent changePsw = new Intent(this, Change_Password_Activity.class);
+                startActivity(changePsw);
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);
@@ -194,8 +187,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void loadDataFromDatabase()
-    {
+    private void loadDataFromDatabase() {
         Log.i(LOG_str, "load data from database and set adapter");
         ArrayList<CodeObject> ArrayOfObjectsFromDatabase = sqLiteHelper.getAllCodes();
 
@@ -209,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(myRecyclerVAdapter);
 
 
-     }
+    }
 
     public interface ItemClickListener {
         void onClick(View view, CodeObject codeObject);
@@ -219,19 +211,19 @@ public class MainActivity extends AppCompatActivity {
         boolean onLongClick(View view, CodeObject codeObject);
     }
 
-    public class MyRecyclerVAdapter extends RecyclerView.Adapter<MyRecyclerVAdapter.CodeViewHolder>{
+    public class MyRecyclerVAdapter extends RecyclerView.Adapter<MyRecyclerVAdapter.CodeViewHolder> {
 
         private final ItemClickListener itemClickListener;
         private final ItemLongClickListener itemLongClickListener;
 
         List<CodeObject> codeObjects;
 
-        MyRecyclerVAdapter(List<CodeObject> codeObjectList, ItemClickListener _itemClickListener, ItemLongClickListener _itemLongClickListener)
-        {
-            codeObjects=codeObjectList;
+        MyRecyclerVAdapter(List<CodeObject> codeObjectList, ItemClickListener _itemClickListener, ItemLongClickListener _itemLongClickListener) {
+            codeObjects = codeObjectList;
             itemClickListener = _itemClickListener;
             itemLongClickListener = _itemLongClickListener;
         }
+
         @Override
         public int getItemCount() {
             return codeObjects.size();
@@ -255,12 +247,10 @@ public class MainActivity extends AppCompatActivity {
             super.onAttachedToRecyclerView(recyclerView);
         }
 
-        public void clearData()
-        {
+        public void clearData() {
             codeObjects.clear();
             notifyDataSetChanged();
         }
-
 
 
         public class CodeViewHolder extends RecyclerView.ViewHolder {
@@ -272,16 +262,15 @@ public class MainActivity extends AppCompatActivity {
 
             CodeViewHolder(View itemView) {
                 super(itemView);
-                cardView = (CardView)itemView.findViewById(R.id.CardView_Code);
-                CodeName = (TextView)itemView.findViewById(R.id.CardView_CodeName);
-                CodeSec = (TextView)itemView.findViewById(R.id.CardView_CodeSec);
+                cardView = (CardView) itemView.findViewById(R.id.CardView_Code);
+                CodeName = (TextView) itemView.findViewById(R.id.CardView_CodeName);
+                CodeSec = (TextView) itemView.findViewById(R.id.CardView_CodeSec);
             }
 
-            public void bindListener(final CodeObject codeObject, final ItemClickListener itemClickListener)
-            {
+            public void bindListener(final CodeObject codeObject, final ItemClickListener itemClickListener) {
                 this.CodeName.setText(codeObject.getCodeName());
                 this.CodeSec.setText("*****");
-                this.dataId=codeObject.getDataID();
+                this.dataId = codeObject.getDataID();
 
                 //set ClickListener for click
                 itemView.setOnClickListener(new View.OnClickListener() {
@@ -294,8 +283,7 @@ public class MainActivity extends AppCompatActivity {
                 //Set ClickListener for long click
                 itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
-                    public boolean onLongClick(View v)
-                    {
+                    public boolean onLongClick(View v) {
                         return itemLongClickListener.onLongClick(v, codeObject);
                     }
                 });
@@ -308,41 +296,33 @@ public class MainActivity extends AppCompatActivity {
 
     class RecyclerViewLongClickListener implements ItemLongClickListener {
         @Override
-        public boolean onLongClick(View view, CodeObject codeObject)
-        {
+        public boolean onLongClick(View view, CodeObject codeObject) {
             delete_Code(codeObject);
             return true;
         }
     }
 
-    class RecyclerViewClickListener implements ItemClickListener
-    {
+    class RecyclerViewClickListener implements ItemClickListener {
         @Override
         public void onClick(View v, CodeObject codeObject) {
 
-            if(loggedIn)
-            {
+            if (loggedIn) {
 
 
                 TextView textView = (TextView) v.findViewById(R.id.CardView_CodeSec);
 
-                if(textView.getText().equals("*****"))
-                {
+                if (textView.getText().equals("*****")) {
                     textView.setText(decrypt(codeObject.getCode()));
-                }
-                else
-                {
+                } else {
                     textView.setText("*****");
                 }
 
 
                 //TextView textView = (TextView) v;
                 //Toast.makeText(getApplicationContext(),textView.getText(), Toast.LENGTH_SHORT).show();
-            }
-            else
-            {
-                Toast.makeText(getApplicationContext(),"not logged in", Toast.LENGTH_SHORT).show();
-                Log.i(LOG_str,"onItemClick: not loged in");
+            } else {
+                Toast.makeText(getApplicationContext(), "not logged in", Toast.LENGTH_SHORT).show();
+                Log.i(LOG_str, "onItemClick: not loged in");
                 authenticate();
             }
 
@@ -351,33 +331,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
-
-
-    public void onClickBtnNewCode(View v)
-    {
+    public void onClickBtnNewCode(View v) {
         add_new_Code();
     }
 
-    private void add_new_Code()
-    {
+    private void add_new_Code() {
 
         Intent intent = new Intent(this, NewCodeActivity.class);
         newCodeInProgress = true;
         startActivityForResult(intent, NEWCODE_ID);
 
 
-
     }
 
-    private void delete_Code(final CodeObject codeObject)
-    {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.AppCompatAlertDialogStyle);
+    private void delete_Code(final CodeObject codeObject) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.AppCompatAlertDialogStyle);
 
 
-        builder.setMessage(getString(R.string.main_Act_delete_Code_text)+"   " + codeObject.getCodeName() + " ?");
+        builder.setMessage(getString(R.string.main_Act_delete_Code_text) + "   " + codeObject.getCodeName() + " ?");
 
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -402,36 +373,30 @@ public class MainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private String encrypt(String message)
-    {
+    private String encrypt(String message) {
 
         AesCbcWithIntegrity.CipherTextIvMac cipherTextIvMac = null;
         try {
             cipherTextIvMac = AesCbcWithIntegrity.encrypt(message, globalSecretKey);
-        } catch (UnsupportedEncodingException |GeneralSecurityException e) {
+        } catch (UnsupportedEncodingException | GeneralSecurityException e) {
             Log.e(LOG_str, "EXCEPTION " + e.getClass() + " THROWN. MESSAGE:" + e.getMessage());
             return null;
         }
         return cipherTextIvMac.toString();
     }
 
-    private String decrypt(String decryptedMessage)
-    {
+    private String decrypt(String decryptedMessage) {
 
         try {
             return AesCbcWithIntegrity.decryptString(new AesCbcWithIntegrity.CipherTextIvMac(decryptedMessage), globalSecretKey);
-        } catch (UnsupportedEncodingException |GeneralSecurityException e) {
+        } catch (UnsupportedEncodingException | GeneralSecurityException e) {
             Log.e(LOG_str, "EXCEPTION " + e.getClass() + " THROWN. MESSAGE:" + e.getMessage());
             return null;
         }
     }
 
 
-
-
-
-    private AesCbcWithIntegrity.SecretKeys loadSecretKeys(String password)
-    {
+    private AesCbcWithIntegrity.SecretKeys loadSecretKeys(String password) {
         try {
             SharedPreferences settings = getSharedPreferences(MY_PREF, 0);
             String mySalt = settings.getString("passwordSalt", null);
@@ -443,11 +408,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-    private void shutdown()
-    {
-        Log.i(LOG_str,"Shutdown");
+    private void shutdown() {
+        Log.i(LOG_str, "Shutdown");
         loggedIn = false;
         finish();
 
@@ -457,34 +419,33 @@ public class MainActivity extends AppCompatActivity {
 
 
     public final int INITALIZATION_ID = 1;
-    public final int LOG_IN_ID =2;
+    public final int LOG_IN_ID = 2;
     public final int NEWCODE_ID = 3;
+    public final int CHANGE_PSW_ID = 4;
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         switch (requestCode) {
-            case INITALIZATION_ID:
-            {
+            case INITALIZATION_ID: {
                 initializationInProgress = false;
                 if (resultCode == RESULT_OK) {
                     String password = data.getStringExtra("password");
                     AesCbcWithIntegrity.SecretKeys secKeys = loadSecretKeys(password);
-                    if(secKeys!=null)
-                    {
+                    if (secKeys != null) {
                         SharedPreferences settings = getSharedPreferences(MY_PREF, 0);
                         SharedPreferences.Editor editor = settings.edit();
                         try {
-                            editor.putString("checkPassword", AesCbcWithIntegrity.encrypt("poqumxs45",secKeys).toString());
-                        } catch (UnsupportedEncodingException |GeneralSecurityException e) {
+                            editor.putString("checkPassword", AesCbcWithIntegrity.encrypt("poqumxs45", secKeys).toString());
+                        } catch (UnsupportedEncodingException | GeneralSecurityException e) {
                             printExceptionToLog(e);
                             return;
                         }
+
                         editor.commit();
                         globalSecretKey = secKeys;
                         loggedIn = true;
-                    }
-                    else
-                    {
+                    } else {
                         Log.e(LOG_str, "Initialize: load key after generation failed");
 
                     }
@@ -493,69 +454,67 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             }
-            case LOG_IN_ID:
-            {
+            case LOG_IN_ID: {
 
                 if (resultCode == RESULT_OK) {
                     AesCbcWithIntegrity.SecretKeys secKeys = (AesCbcWithIntegrity.SecretKeys) data.getSerializableExtra("secKey");
 
-                    if(secKeys != null)
-                    {
+                    if (secKeys != null) {
                         finishAuthentication(secKeys);
+                    } else {
+                        Log.e(LOG_str, "MainActivity: SecKey from Log_In is empty");
                     }
-                    else
-                    {
-                        Log.e(LOG_str, "MainActivity: SecPGPKey could not be loader with password from Log_In");
-                    }
-                }
-                else if(resultCode == RESULT_CANCELED)
-                {
+                } else if (resultCode == RESULT_CANCELED) {
                     Log.i(LOG_str, "Log_In Activity returned with result_canceled: Wrong password 3 times");
                     shutdown();
-                }
-                else
-                {
+                } else {
                     Log.e(LOG_str, "EnterPassword: Activity return false");
                 }
                 break;
 
             }
 
-            case NEWCODE_ID:
-            {
+            case NEWCODE_ID: {
                 newCodeInProgress = false;
-               if(resultCode == RESULT_OK)
-               {
-                   String CodeName = data.getStringExtra("CodeName");
-                   String Code = data.getStringExtra("Code");
+                if (resultCode == RESULT_OK) {
+                    String CodeName = data.getStringExtra("CodeName");
+                    String Code = data.getStringExtra("Code");
 
-                   if(CodeName.isEmpty()||Code.isEmpty()||CodeName.contentEquals("") || Code.contentEquals(""))
-                   {
-                       Log.e(LOG_str, "CodeName or Code is null");
-                       return;
-                   }
+                    if (CodeName.isEmpty() || Code.isEmpty() || CodeName.contentEquals("") || Code.contentEquals("")) {
+                        Log.e(LOG_str, "CodeName or Code is null");
+                        return;
+                    }
 
-                   long id = sqLiteHelper.insertIntoDataTable(CodeName, encrypt(Code));
-                   if(id!=0)
-                       Log.i(LOG_str, "Successful added code in Database. ID="+id);
-                   else
-                       Log.e(LOG_str, "Failed to insert Code into Database");
+                    long id = sqLiteHelper.insertIntoDataTable(CodeName, encrypt(Code));
+                    if (id != 0)
+                        Log.i(LOG_str, "Successful added code in Database. ID=" + id);
+                    else
+                        Log.e(LOG_str, "Failed to insert Code into Database");
 
-                   loadDataFromDatabase();
-                   break;
-               }
-                else
-               {
-                   break;
-               }
+                    loadDataFromDatabase();
+                    break;
+                } else {
+                    break;
+                }
             }
+            case CHANGE_PSW_ID:
+                if (resultCode == RESULT_OK) {
+                    Log.i(LOG_str, "Change Password Activity returned successful");
+
+                } else if (resultCode == RESULT_CANCELED) {
+                    Log.i(LOG_str, "Change Password Activity returned with result_canceled: Wrong password 3 times");
+                    shutdown();
+                } else {
+                    Log.e(LOG_str, "ChangePassword: Activity return false");
+                }
+                break;
+
             default:
                 break;
-            }
+        }
     }
 
-    static public void printExceptionToLog(Exception e)
-    {
+    static public void printExceptionToLog(Exception e) {
         Log.e(LOG_str, "EXCEPTION " + e.getClass() + " THROWN. MESSAGE:" + e.getMessage());
     }
 }

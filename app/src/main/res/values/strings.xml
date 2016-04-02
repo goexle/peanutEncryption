@@ -67,4 +67,8 @@ SOFTWARE.\n
     <string name="Log_In_Act_Wrong_Password">Wrong password</string>
     <string name="Init_App_Empty_password">Empty password not allowed</string>
     <string name="Init_App_Password_do_not_match">Password does not match. Type in again</string>
+    <string name="title_activity_change__password_">Change_Password_Activity</string>
+    <string name="Title_Change_Passord">Change Password</string>
+    <string name="Change_Password_Hint_old">Old password</string>
+    <string name="Menu_Title_Change_PSW">Change password</string>
 </resources>

@@ -8,7 +8,7 @@
     tools:context="peanutencryption.peanutencryption.Initialization">
 
     <android.support.v7.widget.CardView
-        android:id="@+id/CardView_Log_in"
+        android:id="@+id/CardView_Initalization"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp">

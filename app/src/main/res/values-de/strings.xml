@@ -21,4 +21,8 @@
     <string name="Log_In_Act_Wrong_Password">Passwort falsch</string>
     <string name="Init_App_Empty_password">Bitte gib ein Passwort ein</string>
     <string name="Init_App_Password_do_not_match">Passwort stimmt nicht überein</string>
+    <string name="Title_Change_Passord">Passwort ändern</string>
+    <string name="title_activity_change__password_">Passwort ändern</string>
+    <string name="Change_Password_Hint_old">Altes Passwort</string>
+    <string name="Menu_Title_Change_PSW">Passwort ändern</string>
 </resources>

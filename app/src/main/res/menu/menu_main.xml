@@ -6,6 +6,8 @@
         android:title="@string/Main_Title_Menu_Open_Source" />
     <item android:id="@+id/shutdown"
         android:title="@string/Main_Title_Menu_Logout" />
+    <item android:id="@+id/change_password_menu"
+        android:title="@string/Menu_Title_Change_PSW" />
 
 
 </menu>

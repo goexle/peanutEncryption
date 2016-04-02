@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -82,6 +83,7 @@ public class Initialization extends AppCompatActivity {
                 setResult(RESULT_OK, broadcastIntent);
                 finish();
             } else {
+                Log.e(LOG_str, "Change Psw: new Passwords do not match");
                 inputLayoutPasswordFirst.getEditText().setText("");
                 inputLayoutPasswordSecond.getEditText().setText("");
                 inputLayoutPasswordFirst.setError(getString(R.string.Init_App_Password_do_not_match));
