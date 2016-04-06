@@ -4,6 +4,7 @@
  */
 package peanutencryption.peanutencryption;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -29,6 +30,7 @@ public class Log_In extends AppCompatActivity {
     private String LOG_str = "peanutencryption";
 
     private String MY_PREF;
+    ProgressDialog progressDialog;
 
     private int countWrongPassword = 0;
 
@@ -88,10 +90,13 @@ public class Log_In extends AppCompatActivity {
         //check if password is empty
         if (pwd.isEmpty()) {
             textInputLayout.setError(getString(R.string.ChangePsw_App_Empty_password));
-        } else {
-            new GenerateKeyAsynTask().execute(pwd);
-
+            return;
         }
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Checking password");
+        progressDialog.show();
+        new GenerateKeyAsynTask().execute(pwd);
 
 
     }
@@ -111,11 +116,19 @@ public class Log_In extends AppCompatActivity {
         }
     }
 
+    private void postThreadExecution()
+    {
+        progressDialog.dismiss();
+    }
+
     private class GenerateKeyAsynTask extends AsyncTask<String, Void, String> {
 
         private AesCbcWithIntegrity.SecretKeys secretKeys;
 
+
         protected String doInBackground(String... args) {
+
+
             SharedPreferences settings = getSharedPreferences(MY_PREF, 0);
             String mySalt = settings.getString("passwordSalt", null);
             String encryptedCheckPhrase = settings.getString("checkPassword", null);
@@ -151,10 +164,10 @@ public class Log_In extends AppCompatActivity {
         }
 
         protected void onProgressUpdate() {
-
         }
 
         protected void onPostExecute(String password) {
+            postThreadExecution();
             if (password != null) {
 
                 Intent broadcastIntent = new Intent();
@@ -165,7 +178,7 @@ public class Log_In extends AppCompatActivity {
             } else {
                 wrongPassword();
                 TextInputLayout textInputLayout = (TextInputLayout) findViewById(R.id.start_editText_Password);
-
+                textInputLayout.getEditText().setText("");
                 textInputLayout.setError(getString(R.string.Log_In_Act_Wrong_Password));
 
             }

@@ -1,5 +1,6 @@
 package peanutencryption.peanutencryption;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
@@ -27,6 +28,8 @@ public class Change_Password_Activity extends AppCompatActivity {
     private String MY_PREF;
     private SQLiteHelper sqLiteHelper;
 
+    ProgressDialog progressDialog;
+
     private int countWrongPassword = 0;
 
 
@@ -34,6 +37,7 @@ public class Change_Password_Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change__password_);
+
 
 
         MY_PREF = getString(R.string.sharedPref);
@@ -78,6 +82,9 @@ public class Change_Password_Activity extends AppCompatActivity {
             Button btn = (Button) findViewById(R.id.Change_Password_ConfirmBtn);
             btn.setEnabled(false);
 
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage("Checking password");
+            progressDialog.show();
             new CheckOldKeyTask().execute(oldPassword, firstPassword);
 
 
@@ -90,6 +97,12 @@ public class Change_Password_Activity extends AppCompatActivity {
         }
 
     }
+
+    private void postThreadExecution()
+    {
+        progressDialog.dismiss();
+    }
+
 
     private class CheckOldKeyTask extends AsyncTask<String, Void, Integer> {
 
@@ -203,6 +216,7 @@ public class Change_Password_Activity extends AppCompatActivity {
         }
 
         protected void onPostExecute(Integer success) {
+            postThreadExecution();
             if (success == 0) {
                 Intent intent = new Intent();
 

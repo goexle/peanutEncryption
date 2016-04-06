@@ -6,6 +6,7 @@ package peanutencryption.peanutencryption;
 
 import android.app.AlertDialog;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -430,15 +431,26 @@ public class MainActivity extends AppCompatActivity {
             case INITALIZATION_ID: {
                 initializationInProgress = false;
                 if (resultCode == RESULT_OK) {
+//
+//                    ProgressDialog progressDialog = new ProgressDialog(this);
+//                    progressDialog.setMessage("Generating key");
+//                    progressDialog.show();
+
+                    SharedPreferences settings = getSharedPreferences(MY_PREF, 0);
+                    SharedPreferences.Editor editor = settings.edit();
+
                     String password = data.getStringExtra("password");
                     AesCbcWithIntegrity.SecretKeys secKeys = loadSecretKeys(password);
                     if (secKeys != null) {
-                        SharedPreferences settings = getSharedPreferences(MY_PREF, 0);
-                        SharedPreferences.Editor editor = settings.edit();
+
                         try {
                             editor.putString("checkPassword", AesCbcWithIntegrity.encrypt("poqumxs45", secKeys).toString());
                         } catch (UnsupportedEncodingException | GeneralSecurityException e) {
                             printExceptionToLog(e);
+                            // set isInitialized false if Initialization fails.
+                            editor.putBoolean("isInitialized", false);
+                            editor.commit();
+                            Log.e(LOG_str, "set isInitialized = fale");
                             return;
                         }
 
@@ -447,7 +459,8 @@ public class MainActivity extends AppCompatActivity {
                         loggedIn = true;
                     } else {
                         Log.e(LOG_str, "Initialize: load key after generation failed");
-
+                        editor.putBoolean("isInitialized", false);
+                        editor.commit();
                     }
                 }
 
