@@ -25,4 +25,6 @@
     <string name="title_activity_change__password_">Passwort ändern</string>
     <string name="Change_Password_Hint_old">Altes Passwort</string>
     <string name="Menu_Title_Change_PSW">Passwort ändern</string>
+    <string name="ChangePsw_App_Empty_password">Eingabefeld leer</string>
+    <string name="ProgressDialog_checking_password">Schlüssel wird generiert</string>
 </resources>

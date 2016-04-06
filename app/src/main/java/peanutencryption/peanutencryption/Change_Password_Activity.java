@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.tozny.crypto.android.AesCbcWithIntegrity;
 
@@ -83,7 +82,7 @@ public class Change_Password_Activity extends AppCompatActivity {
             btn.setEnabled(false);
 
             progressDialog = new ProgressDialog(this);
-            progressDialog.setMessage("Checking password");
+            progressDialog.setMessage(getString(R.string.ProgressDialog_checking_password));
             progressDialog.show();
             new CheckOldKeyTask().execute(oldPassword, firstPassword);
 

@@ -94,7 +94,7 @@ public class Log_In extends AppCompatActivity {
         }
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Checking password");
+        progressDialog.setMessage(getString(R.string.ProgressDialog_checking_password));
         progressDialog.show();
         new GenerateKeyAsynTask().execute(pwd);
 
@@ -134,7 +134,7 @@ public class Log_In extends AppCompatActivity {
             String encryptedCheckPhrase = settings.getString("checkPassword", null);
 
             AesCbcWithIntegrity.SecretKeys secKey;
-            String plainTestPhrase = null;
+            String plainTestPhrase;
             try {
                 secKey = AesCbcWithIntegrity.generateKeyFromPassword(args[0], mySalt);
 

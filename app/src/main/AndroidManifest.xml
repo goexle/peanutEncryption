@@ -44,6 +44,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="peanutencryption.peanutencryption.MainActivity" />
         </activity>
+        <activity android:name=".WelcomeActivity"></activity>
     </application>
 
 </manifest>
