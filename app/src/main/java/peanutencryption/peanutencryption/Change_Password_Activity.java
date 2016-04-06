@@ -44,7 +44,7 @@ public class Change_Password_Activity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-
+// TODO Allow going back if button is not clicked
     }
 
     public void clickButtonCPConfirm(View v) {
@@ -54,33 +54,41 @@ public class Change_Password_Activity extends AppCompatActivity {
         TextInputLayout inputLayoutPasswordFirst = (TextInputLayout) findViewById(R.id.textInputLayoutCP_Password_First);
         TextInputLayout inputLayoutPasswordSecond = (TextInputLayout) findViewById(R.id.textInputLayoutCP_Password_Second);
 
+
         String oldPassword = inputLayoutPasswordOld.getEditText().getText().toString();
         String firstPassword = inputLayoutPasswordFirst.getEditText().getText().toString();
         String secondPassword = inputLayoutPasswordSecond.getEditText().getText().toString();
 
+        if (oldPassword.isEmpty()) {
+            inputLayoutPasswordOld.setError(getString(R.string.ChangePsw_App_Empty_password));
+            Log.i(LOG_str, "Change password: old password is empty");
+            return;
+        }
+
 
         if (firstPassword.isEmpty()) {
-            inputLayoutPasswordFirst.setError(getString(R.string.Init_App_Empty_password));
+            inputLayoutPasswordFirst.setError(getString(R.string.ChangePsw_App_Empty_password));
             inputLayoutPasswordSecond.setError(" ");
-            Log.i(LOG_str, "Change password: password is empty");
+            Log.i(LOG_str, "Change password: first new password is empty");
+            return;
+        }
+
+
+        if (firstPassword.contentEquals(secondPassword)) {
+            Button btn = (Button) findViewById(R.id.Change_Password_ConfirmBtn);
+            btn.setEnabled(false);
+
+            new CheckOldKeyTask().execute(oldPassword, firstPassword);
+
 
         } else {
-
-            if (firstPassword.contentEquals(secondPassword)) {
-                Button btn = (Button) findViewById(R.id.Change_Password_ConfirmBtn);
-                btn.setEnabled(false);
-
-                new CheckOldKeyTask().execute(new String[]{oldPassword, firstPassword});
-
-
-            } else {
-                Log.e(LOG_str, "Change Psw: new Passwords do not match");
-                inputLayoutPasswordFirst.getEditText().setText("");
-                inputLayoutPasswordSecond.getEditText().setText("");
-                inputLayoutPasswordFirst.setError(getString(R.string.Init_App_Password_do_not_match));
-                inputLayoutPasswordSecond.setError(" ");
-            }
+            Log.e(LOG_str, "Change Psw: new Passwords do not match");
+            inputLayoutPasswordFirst.getEditText().setText("");
+            inputLayoutPasswordSecond.getEditText().setText("");
+            inputLayoutPasswordFirst.setError(getString(R.string.Init_App_Password_do_not_match));
+            inputLayoutPasswordSecond.setError(" ");
         }
+
     }
 
     private class CheckOldKeyTask extends AsyncTask<String, Void, Integer> {
@@ -131,16 +139,14 @@ public class Change_Password_Activity extends AppCompatActivity {
             ArrayList<CodeObject> codeObjectOldFromDB = sqLiteHelper.getAllCodes();
             try {
 
-                for (CodeObject codeItem: codeObjectOldFromDB)
-                {
+                for (CodeObject codeItem : codeObjectOldFromDB) {
 
 
-                        String oldEncrypt = codeItem.getCode();
-                        String plainCode = AesCbcWithIntegrity.decryptString(new AesCbcWithIntegrity.CipherTextIvMac(oldEncrypt), oldSecKey);
-                        String newEncrypt = AesCbcWithIntegrity.encrypt(plainCode, newSEC_KEY).toString();
-                        codeItem.setCode(newEncrypt);
+                    String oldEncrypt = codeItem.getCode();
+                    String plainCode = AesCbcWithIntegrity.decryptString(new AesCbcWithIntegrity.CipherTextIvMac(oldEncrypt), oldSecKey);
+                    String newEncrypt = AesCbcWithIntegrity.encrypt(plainCode, newSEC_KEY).toString();
+                    codeItem.setCode(newEncrypt);
                 }
-
 
 
             } catch (UnsupportedEncodingException | GeneralSecurityException e) {
@@ -151,8 +157,7 @@ public class Change_Password_Activity extends AppCompatActivity {
 
             //update codes in database
             SQLiteDatabase db = sqLiteHelper.updateCodes(codeObjectOldFromDB);
-            if(db == null)
-            {
+            if (db == null) {
                 Log.e(LOG_str, "Failed to update codes in database");
                 return 4;
             }
@@ -162,17 +167,14 @@ public class Change_Password_Activity extends AppCompatActivity {
                 ArrayList<CodeObject> nEWcodeObjects = sqLiteHelper.getAllCodes();
 
                 //Check if new codes in database equals to inserted
-                for (CodeObject codeItemOld: codeObjectOldFromDB)
-                {
+                for (CodeObject codeItemOld : codeObjectOldFromDB) {
                     boolean isequal = false;
-                    for(CodeObject codeItemNew : nEWcodeObjects)
-                    {
-                        if(codeItemOld.getCode().equals(codeItemNew.getCode()))
-                        {
+                    for (CodeObject codeItemNew : nEWcodeObjects) {
+                        if (codeItemOld.getCode().equals(codeItemNew.getCode())) {
                             isequal = true;
                         }
                     }
-                    if(!isequal)
+                    if (!isequal)
                         throw new Exception("codeObj in dbCodeList does not match with new items from db");
                 }
 
@@ -182,19 +184,16 @@ public class Change_Password_Activity extends AppCompatActivity {
                 editor.commit();
                 db.setTransactionSuccessful();
 
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 MainActivity.printExceptionToLog(e);
                 Log.e(LOG_str, "Failed to decrypt with old key and encrypt with new key");
                 return 5;
-            }
-            finally {
+            } finally {
                 db.endTransaction();
             }
 
             Log.i(LOG_str, "Successful changed password");
             return 0;
-
 
 
         }
@@ -209,9 +208,7 @@ public class Change_Password_Activity extends AppCompatActivity {
 
                 setResult(RESULT_OK, intent);
                 finish();
-            }
-            else if (success == 1)
-            {
+            } else if (success == 1) {
                 wrongPassword();
                 Button btn = (Button) findViewById(R.id.Change_Password_ConfirmBtn);
                 btn.setEnabled(true);
@@ -219,24 +216,17 @@ public class Change_Password_Activity extends AppCompatActivity {
 
                 inputLayoutPasswordOld.setError(getString(R.string.Log_In_Act_Wrong_Password));
 
-            }
-            else if(success == 2)
-            {
+            } else if (success == 2) {
+                setResult(RESULT_CANCELED, new Intent());
+                finish();
+            } else {
                 setResult(RESULT_CANCELED, new Intent());
                 finish();
             }
-            else
-            {
-                setResult(RESULT_CANCELED, new Intent());
-                finish();
-            }
-
 
 
         }
     }
-
-
 
 
     private void wrongPassword() {

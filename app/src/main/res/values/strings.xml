@@ -71,4 +71,5 @@ SOFTWARE.\n
     <string name="Title_Change_Passord">Change Password</string>
     <string name="Change_Password_Hint_old">Old password</string>
     <string name="Menu_Title_Change_PSW">Change password</string>
+    <string name="ChangePsw_App_Empty_password">Password is empty</string>
 </resources>

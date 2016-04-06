@@ -494,6 +494,7 @@ public class MainActivity extends AppCompatActivity {
                     loadDataFromDatabase();
                     break;
                 } else {
+                    logout();
                     break;
                 }
             }

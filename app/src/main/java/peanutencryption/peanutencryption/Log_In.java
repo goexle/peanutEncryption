@@ -37,7 +37,7 @@ public class Log_In extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logg_in);
 
-        MY_PREF  = getString(R.string.sharedPref);
+        MY_PREF = getString(R.string.sharedPref);
 
         TextInputLayout textInputLayout = (TextInputLayout) findViewById(R.id.start_editText_Password);
         //String pwd = textInputLayout.getEditText().getText().toString();
@@ -80,25 +80,28 @@ public class Log_In extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClickBtnLogIn(View v)
-    {
+    public void onClickBtnLogIn(View v) {
         TextInputLayout textInputLayout = (TextInputLayout) findViewById(R.id.start_editText_Password);
         String pwd = textInputLayout.getEditText().getText().toString();
 
-        new GenerateKeyAsynTask().execute(new String[]{pwd});
+
+        //check if password is empty
+        if (pwd.isEmpty()) {
+            textInputLayout.setError(getString(R.string.ChangePsw_App_Empty_password));
+        } else {
+            new GenerateKeyAsynTask().execute(pwd);
+
+        }
 
 
     }
 
 
-
-    private void wrongPassword()
-    {
+    private void wrongPassword() {
 
         countWrongPassword++;
-        Log.i(LOG_str,"Enterd wrong password. Count="+countWrongPassword);
-        if(countWrongPassword>=3)
-        {
+        Log.i(LOG_str, "Enterd wrong password. Count=" + countWrongPassword);
+        if (countWrongPassword >= 3) {
             Log.e(LOG_str, "ERROR: Entered wrong password three time!! Shutdown App");
 
             Intent broadcastIntent = new Intent();
@@ -115,33 +118,34 @@ public class Log_In extends AppCompatActivity {
         protected String doInBackground(String... args) {
             SharedPreferences settings = getSharedPreferences(MY_PREF, 0);
             String mySalt = settings.getString("passwordSalt", null);
-            String encryptedCheckPhrase = settings.getString("checkPassword",null);
+            String encryptedCheckPhrase = settings.getString("checkPassword", null);
 
             AesCbcWithIntegrity.SecretKeys secKey;
             String plainTestPhrase = null;
             try {
-                secKey = AesCbcWithIntegrity.generateKeyFromPassword(args[0],mySalt);
+                secKey = AesCbcWithIntegrity.generateKeyFromPassword(args[0], mySalt);
 
                 plainTestPhrase = AesCbcWithIntegrity.decryptString(new AesCbcWithIntegrity.CipherTextIvMac(encryptedCheckPhrase), secKey);
-            } catch (GeneralSecurityException |UnsupportedEncodingException e) {
-                MainActivity.printExceptionToLog(e);
+            } catch (GeneralSecurityException | UnsupportedEncodingException e) {
+                if (e.getMessage().contains("MAC stored in civ does not match computed MAC"))
+                {
+                    Log.i(LOG_str, "Login failed. Password wrong");
+                }
+                else
+                {
+                    MainActivity.printExceptionToLog(e);
+                }
                 secretKeys = null;
                 return null;
             }
 
-            if(plainTestPhrase.contentEquals("poqumxs45"))
-            {
-                secretKeys =secKey;
+            if (plainTestPhrase.contentEquals("poqumxs45")) {
+                secretKeys = secKey;
                 return args[0];
-            }
-            else
-            {
+            } else {
                 secretKeys = null;
                 return null;
             }
-
-
-
 
 
         }
@@ -151,15 +155,14 @@ public class Log_In extends AppCompatActivity {
         }
 
         protected void onPostExecute(String password) {
-            if( password != null ) {
+            if (password != null) {
 
                 Intent broadcastIntent = new Intent();
-                broadcastIntent.putExtra("secKey",secretKeys);
+                broadcastIntent.putExtra("secKey", secretKeys);
                 setResult(RESULT_OK, broadcastIntent);
                 finish();
 
-            }
-            else {
+            } else {
                 wrongPassword();
                 TextInputLayout textInputLayout = (TextInputLayout) findViewById(R.id.start_editText_Password);
 
