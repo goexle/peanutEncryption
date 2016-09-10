@@ -18,6 +18,7 @@ The project is provided under the terms of the Apache License 2.0 (http://www.ap
 You may obtain a copy of the source files at https://github.com/goexle/peanutEncryption.
 
 #Donate
-If you like the project, feel free to donate to my Bitcoin address
+If you like the project, feel free to donate to my Bitcoin address.
+
 1MUhsgH2sEsWdopRXQwZ8GyP6x5LMK4EGw
 
